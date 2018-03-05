@@ -89,7 +89,6 @@ mespace FilesRemover
 
         private void startButton_Click(object sender, EventArgs e)
         {
-<<<<<<< HE            //czyszczenie pola z logiem operacji i blokowanie kontrolek
             ChangeEnableControls(false);
             logBox.ResetText();
 
@@ -596,20 +595,17 @@ object sender, EventArgs e)
 ====
            ILogger messageBoxLogger;
 
-        private DateTime _borderDate;
         private Stopwatch _stopwatch;
 
         private IEnumerable<FileData> allFiles;
         private IEnumerable<string> allDirectories;
-
-        private bool copyAndDeleteFiles;
-        private bool deleteEmptyDirectories;
 
         private int maxValueProgressBar;
 
         private int allDirectoriesCount;
         private int allFilesCount;
 
+<<<<<<< master
         private bool overrideFiles;
 >>>>>>>-dbb3e01
      public FilesRemoverForm()
@@ -661,17 +657,16 @@ object sender, EventArgs e)
 >>>>>>>+HEAD
        p        private void button1_Click(object sender, EventArgs e)
         {
-            ShowFolderDialog(sourcePathTextBox);
+            filesRemoverModel.SourcePath = ShowFolderDialog(filesRemoverModel.SourcePath);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void destinationPathDialog_Click(object sender, EventArgs e)
         {
             ShowFolderDialog(destinationPathTextBox);
 >>>>>>>-dbb3e01
 
         private void startButton_Click(object sender, EventArgs e)
         {
-<<<<<<< HE            //czyszczenie pola z logiem operacji i blokowanie kontrolek
             ChangeEnableControls(false);
             logBox.ResetText();
 
@@ -680,13 +675,13 @@ object sender, EventArgs e)
             ChangeEnableControls(false);
             logBox.ResetText();
 
+<<<<<<< master
             UpdateAll();
 >>>>>>>-dbb3e01
  InitializeProgressBar();
 
             if (IsOptionsValid())
             {
-<<<<<<< HEA                _filesRemover = new FilesRemover(_filesRemoverModel, logger, logBox, progressBar);
 
                 UseWaitCursor = true;
                 Application.DoEvents();
@@ -745,6 +740,7 @@ object sender, EventArgs e)
         {
             NumericUpDown numberOfWeeks = sender as NumericUpDown;
 
+<<<<<<< master
 <<<<<<< HEAD
             UpdateBorderDate((int)numberOfWeeks.Value);
 >>>>>>>+HEAD
@@ -790,8 +786,9 @@ object sender, EventArgs e)
       An            AnyJobSelected();
         }
 
-        private void deleteDirectoriesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void deleteEmptyDirectoriesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            filesRemoverModel.DeleteEmptyDirectories = (sender as CheckBox).Checked;
             AnyJobSelected();
         }
 >>>>>>>-dbb3e01
@@ -846,7 +843,6 @@ rOfWeeks.Enabled = value;
             overrideFilesCheckBox.Enabled = value;
         }
 
-<<<<<<< HEAD
             private void InitializeProgressBar()
         { 
             progressBar.Value = 0;
@@ -930,17 +926,17 @@ ectFiles        private void CollectFilesInfo(string path)
             foreach (FileData file in allFiles)
             {
                 var lastAccessDate = file.LastAccesTime;
-                if (lastAccessDate <= _borderDate)
+                if (lastAccessDate <= filesRemoverModel.BorderDate)
                 {
                     string fileName = Path.GetFileName(file.Path);
                     try
                     {
-                        string copiedFilePath = $@"{destinationPathTextBox.Text}\{fileName}";
+                        string copiedFilePath = $@"{filesRemoverModel.DestinationPath}\{fileName}";
                         if (File.Exists(copiedFilePath))
                         {
                             copiedFilePath = copiedFilePath.Insert(copiedFilePath.LastIndexOf('.'), "_copy");
                         }
-                        File.Copy(file.Path, copiedFilePath, overrideFiles);
+                        File.Copy(file.Path, copiedFilePath, filesRemoverModel.OverrideFiles);
                         File.SetLastAccessTime(copiedFilePath, lastAccessDate);
                         File.Delete(file.Path);
 
@@ -1013,10 +1009,10 @@ ectFiles        private void CollectFilesInfo(string path)
 
         private void CollectInfoForJobs()
         {
-            if (copyAndDeleteFiles)
-                CollectFilesInfo(sourcePathTextBox.Text);
-            if (deleteEmptyDirectories)
-                CollectDirectoriesInfo(sourcePathTextBox.Text);
+            if (filesRemoverModel.CopyAndDeleteFiles)
+                CollectFilesInfo(filesRemoverModel.SourcePath);
+            if (filesRemoverModel.DeleteEmptyDirectories)
+                CollectDirectoriesInfo(filesRemoverModel.SourcePath);
         }
 
         private void InitializeProgressBar()
@@ -1029,28 +1025,6 @@ ectFiles        private void CollectFilesInfo(string path)
             progressBar.ForeColor = System.Drawing.Color.Yellow;
         }
 
-        private void UpdateAll()
-        {
-            UpdateBorderDate();
-            UpdateJobOptions();
-        }
-
-        private void UpdateBorderDate()
-        {
-            int days = Convert.ToInt32(numberOfWeeks.Value) * 7;
-
-            _borderDate = DateTime.Now;
-            _borderDate = _borderDate.Subtract(TimeSpan.FromDays(days));
-            borderDateLabel.Text = _borderDate.ToShortDateString();
-        }
-
-        private void UpdateJobOptions()
-        {
-            copyAndDeleteFiles = deleteCopyFilesCheckBox.Checked;
-            deleteEmptyDirectories = deleteDirectoriesCheckBox.Checked;
-            overrideFiles = overrideFilesCheckBox.Checked;
-        }
-
         private bool IsDirectoryEmpty(string path)
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
@@ -1059,25 +1033,25 @@ ectFiles        private void CollectFilesInfo(string path)
         private bool IsOptionsValid()
         {
             //sprawdzanie poprawności scieżki początkowej i końcowej
-            if (!Directory.Exists(sourcePathTextBox.Text))
+            if (!Directory.Exists(filesRemoverModel.SourcePath))
             {
                 messageBoxLogger.Log("Podana ścieżka początkowa nie istnieje!");    
                 return false;
             }
 
-            if (!Directory.Exists(destinationPathTextBox.Text))
+            if (filesRemoverModel.CopyAndDeleteFiles && !Directory.Exists(filesRemoverModel.DestinationPath))
             {
                 messageBoxLogger.Log("Podana ścieżka końcowa nie istnieje!");
                 return false;
             }
 
-            if (Path.GetFullPath(sourcePathTextBox.Text) == Path.GetFullPath(destinationPathTextBox.Text))
+            if (filesRemoverModel.CopyAndDeleteFiles && Path.GetFullPath(filesRemoverModel.SourcePath) == Path.GetFullPath(filesRemoverModel.DestinationPath))
             {
                 messageBoxLogger.Log("Ścieżka początkowa i końcowa nie może być taka sama!");
                 return false;
             }
 
-            return CheckStartEndPath();
+            return true;
         }
 
         private void SaveLogToFile()
@@ -1096,11 +1070,13 @@ ectFiles        private void CollectFilesInfo(string path)
             }
         }
 
-        private void ShowFolderDialog(TextBox textBox)
+        private string ShowFolderDialog(string currentPath)
         {
+            string resultPath = currentPath;
             var folderDialog = new FolderBrowserDialog();
-            string prevpath = folderDialog.SelectedPath;
+            
             folderDialog.Reset();
+<<<<<<< master
             folderDialog.SelectedPath = textBox.Text;
 >>>>>>>-dbb3e01
       DialogResult dr = folderDialog.ShowDialog();
@@ -1161,7 +1137,11 @@ object sender, EventArgs e)
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
+            int days = numberOfWeeksBack * 7;
+            filesRemoverModel.BorderDate = DateTime.Now;
+            filesRemoverModel.BorderDate = filesRemoverModel.BorderDate.Subtract(TimeSpan.FromDays(days));
 
+            borderDateLabel.Text = filesRemoverModel.BorderDate.ToShortDateString();
         }
 >>>>>>> dbb3e01... Dodaj pliki projektów.
     }
