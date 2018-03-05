@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 ot>
-  <!-- 
+!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -117,7 +117,7 @@ ot>
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-<<<  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+<<<<<<  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -3182,7 +3182,13 @@ ot>
   <  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAQAEBAAAAEAIABoBAAARgAAACAgAAABACAAqBAAAK4EAAAwMAAAAQAgAKglAABWFQAAQEAAAAEA
+>>>>>>>+HEAD
+====
+  <  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+>>>>>>>-dbb3e01
+    AAABAAQAEBAAAAEAIABoBAAARgAAACAgAAABACAAqBAAAK4EAAAwMAAAAQAgAKglAABWFQAAQEAAAAEA
         IAAoQgAA/joAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAACMuAAAjLgAAAAAAAAAAAAAAAAAAAAAAAAAA
         AADWmyoA1psqANabKhDWmypB1Zoqct2lKYvywieG88QnY/PEJy/zxCcF88QnAPPEJwAAAAAAAAAAAAAA
         AADWmyoA1psqCNabKljWmyq/1psq79aaKvHdpCno8sIn6vPEJ/PzxCfm88QnoPPEJzT2xikA88QnAAAA
@@ -3716,7 +3722,11 @@ ot>
         D//wB+AAfAAH//gD4AAAAAP/+AHwAAAAAf/8AfgAAAAA//wA/gAAAAB//gB/AAAAAD/+AD/AAAYAH/8A
         D/gAPwAP/4AH/8f/wAf/wAH///8AB//gAH///AAP//AAH//wAB//+AAB/gAAP//8AAAAAAD///8AAAAA
         Af///4AAAAAD////4AAAAA/////4AAAAP/////4AAAH//////+AAD////////4f//////////////w==
->>>>>>>-dbb3e01
+<<<<>>>>>>>-dbb3e01
 lue>
-  </data>
+>>>>>>>+HEAD
+===
+</va</value>
+>>>>>>>-dbb3e01
+ata>
 </root>
