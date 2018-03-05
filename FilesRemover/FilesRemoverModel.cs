@@ -92,5 +92,5 @@ namespace FilesRemover
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
+ }
 }

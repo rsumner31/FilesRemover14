@@ -14,8 +14,7 @@ mespace FilesRemover
 >>>>>>>+HEAD
 ====
            ILogger messageBoxLogger;
-
-        private DateTime _borderDate;
+      private DateTime _borderDate;
         private Stopwatch _stopwatch;
 
         private IEnumerable<FileData> allFiles;
@@ -30,7 +29,7 @@ mespace FilesRemover
         private int allFilesCount;
 
         private bool overrideFiles;
->>>>>>>-dbb3e01
+<<<>>>>>>>-dbb3e01
      public FilesRemoverForm()
         {
             InitializeComponent();
@@ -59,12 +58,20 @@ mespace FilesRemover
 >>>>>>>+HEAD
 =
                   messageBoxLogger = new MessageBoxLogger();
+>>>>>>>+HEAD
+==
 
-            // padding okienka wyświetlającego logi
+    
+        public FilesRemoverForm()
+        {
+            InitializeComponent();
+
+            messageBoxLogger = new MessageBoxLogger();
+>>>>>>>-dbb3e01
+       // padding okienka wyświetlającego logi
             logBox.SelectionTabs = new[] {0, 800};
 
             UpdateAll();
->>>>>>>-dbb3e01
 
 
         #region Events
@@ -78,14 +85,21 @@ mespace FilesRemover
             _filesRemoverModel.DestinationPath = ShowFolderDialog(_filesRemoverModel.DestinationPath);
 >>>>>>>+HEAD
        p        private void button1_Click(object sender, EventArgs e)
-        {
+>>>>>>>+HEAD
+                }
+
+        #region Events
+
+        private void button1_Click(object sender, EventArgs e)
+>>>>>>>-dbb3e01
+
             ShowFolderDialog(sourcePathTextBox);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ShowFolderDialog(destinationPathTextBox);
->>>>>>>-dbb3e01
+<<<<<<< H>>>>>>>-dbb3e01
 
         private void startButton_Click(object sender, EventArgs e)
         {
@@ -94,11 +108,18 @@ mespace FilesRemover
 
 >>>>>>>+HEAD
                     //czyszczenie pola z logiem operacji i aktualizacja daty granicznej
-            ChangeEnableControls(false);
+>>>>>>>+HEAD
+       }        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            //czyszczenie pola z logiem operacji i aktualizacja daty granicznej
+>>>>>>>-dbb3e01
+  ChangeEnableControls(false);
             logBox.ResetText();
 
             UpdateAll();
->>>>>>>-dbb3e01
+<<<<<<< HE>>>>>>>-dbb3e01
  InitializeProgressBar();
 
             if (IsOptionsValid())
@@ -123,7 +144,14 @@ mespace FilesRemover
             }          
 >>>>>>>+HEAD
                         StartTimer();
-                UseWaitCursor = true;
+>>>>>>>+HEAD
+                    InitializeProgressBar();
+
+            if (IsOptionsValid())
+            {
+                StartTimer();
+>>>>>>>-dbb3e01
+    UseWaitCursor = true;
                 Application.DoEvents();
 
                 logBox.Font = new System.Drawing.Font("Arial", 30);
@@ -147,10 +175,16 @@ mespace FilesRemover
             }
             else
                 ChangeEnableControls(true);
->>>>>>>-dbb3e01
+<<<<<<< HEAD>>>>>>>-dbb3e01
       private void changePaddingButton_Click_1(object sender, EventArgs e)
-        {
-            int padding = int.Parse(paddingValue.Text);
+>>>>>>>+HEAD
+    }
+
+         }
+
+        private void changePaddingButton_Click_1(object sender, EventArgs e)
+>>>>>>>-dbb3e01
+         int padding = int.Parse(paddingValue.Text);
             string text = logBox.Text;
 
             logBox.Clear();
@@ -162,6 +196,8 @@ mespace FilesRemover
         {
             NumericUpDown numberOfWeeks = sender as NumericUpDown;
 
+<<<<<<< HEAD
+<<<<<<<+HEAD
 <<<<<<< HEAD
             UpdateBorderDate((int)numberOfWeeks.Value);
 >>>>>>>+HEAD
@@ -206,29 +242,49 @@ mespace FilesRemover
 >>>>>>>+HEAD
       An            AnyJobSelected();
         }
+       i            int days = Convert.ToInt32(numberOfWeeks.Value)*7;
+            _borderDate = DateTime.Now;
+            _borderDate = _borderDate.Subtract(TimeSpan.FromDays(days));
+            borderDateLabel.Text = _borderDate.ToShortDateString();
+        }
 
-        private void deleteDirectoriesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void deleteCopyFilesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             AnyJobSelected();
         }
 >>>>>>>-dbb3e01
+te void deleteDirectoriesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AnyJobSelected();
+        }
+<<<<<<< HEAD
+>>>>>>>>-dbb3e01
 gion
-
-        #region HelperMethods
+>>>>>>>+HEAD
+   #endr
+        #endregion
+>>>>>>>-dbb3e01
+n HelperMethods
 
         private void AnyJobSelected()
         {
 <<<<<<< HEAD
+<<<<<<<<< HEAD
               if (!_filesRemoverModel.CopyAndDeleteFiles && !_filesRemoverModel.DeleteEmptyDirectories)
 >>>>>>>+HEAD
      if             if (!deleteCopyFilesCheckBox.Checked && !deleteDirectoriesCheckBox.Checked)
 >>>>>>>-dbb3e01
 startButton.Enabled = false;
-            else
+>>>>>>>+HEAD
+     if             if (!deleteCopyFilesCheckBox.Checked && !deleteDirectoriesCheckBox.Checked)
+                startButton.Enabled = false;
+>>>>>>>-dbb3e01
+
                 startButton.Enabled = true;
         }
 
 <<<<<<< HEAD
+<<<<<<<<<< HEAD
            public void ChangeEnableControls(bool value)
         {
             startButton.Enabled = value;
@@ -236,8 +292,10 @@ startButton.Enabled = false;
             deleteEmptyDirectoriesCheckBox.Enabled = value;
 >>>>>>>+HEAD
 private         private bool CheckStartEndPath()
-        {
-            if (!Directory.Exists(sourcePathTextBox.Text))
+>>>>>>>+HEAD
+private         private bool CheckStartEndPath()
+>>>>>>>-dbb3e01
+     if (!Directory.Exists(sourcePathTextBox.Text))
             {
                 return false;
             }
@@ -254,9 +312,13 @@ private         private bool CheckStartEndPath()
             startButton.Enabled = value;
             deleteCopyFilesCheckBox.Enabled = value;
             deleteDirectoriesCheckBox.Enabled = value;
->>>>>>>-dbb3e01
+<<<<<<< HEAD
+>>>>>>>>>>>-dbb3e01
 rOfWeeks.Enabled = value;
-            sourcePathTextBox.Enabled = value;
+>>>>>>>+HEAD
+   numbe            numberOfWeeks.Enabled = value;
+>>>>>>>-dbb3e01
+PathTextBox.Enabled = value;
             destinationPathTextBox.Enabled = value;
             changePaddingButton.Enabled = value;
             paddingValue.Enabled = value;
@@ -264,6 +326,7 @@ rOfWeeks.Enabled = value;
         }
 
 <<<<<<< HEAD
+<<<<<<<<<<<< HEAD
             private void InitializeProgressBar()
         { 
             progressBar.Value = 0;
@@ -305,9 +368,10 @@ rOfWeeks.Enabled = value;
             folderDialog.SelectedPath = currentPath;
 >>>>>>>+HEAD
 ectFiles        private void CollectFilesInfo(string path)
-        {
-            try
-            {
+>>>>>>>+HEAD
+ctFilesI        private void CollectFilesInfo(string path)
+>>>>>>>-dbb3e01
+   {
                 allFiles = FastDirectoryEnumerator.EnumerateFiles(path, "*", SearchOption.AllDirectories);
                 allFilesCount = allFiles.Count();
                 maxValueProgressBar += allFilesCount;
@@ -519,7 +583,9 @@ ectFiles        private void CollectFilesInfo(string path)
             string prevpath = folderDialog.SelectedPath;
             folderDialog.Reset();
             folderDialog.SelectedPath = textBox.Text;
+<<<<<<< HEAD
 >>>>>>>-dbb3e01
+      DialogResult dr = folderDi>>>>>>>-dbb3e01
       DialogResult dr = folderDialog.ShowDialog();
             if (dr == DialogResult.OK || dr == DialogResult.Yes)
             {
@@ -1094,10 +1160,23 @@ Path;
             folderDialog.SelectedPath = prevpath;
 >>>>>>>-dbb3e01
       _stopwatch = new Stopwatch();
+>>>>>>>+HEAD
+alog();
+            folderDialog.ShowNewFolderButton = true;
 
-            startTimeLabel.Visible = true;
-            endTimeLabel.Visible = false;
-            durationLabel.Visible = false;
+            DialogResult dr = folderDialog.ShowDialog();
+            if (dr == DialogResult.OK || dr == DialogResult.Yes)
+            {
+                textBox.Text = folderDialog.SelectedPath;
+            }
+            folderDialog.SelectedPath = prevpath;
+        }
+
+        private void StartTimer()
+        {
+            _stopwatch = new Stopwatch();
+>>>>>>>-dbb3e01
+Visible = false;
 
             _stopwatch.Start();
 
@@ -1117,6 +1196,8 @@ Path;
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+        private void UpdateBorderDate(int numberOf        private void UpdateBorderDate(<<<<<<< HEAD
         private void UpdateBorderDate(int numberOf        private void UpdateBorderDate(int numberOfWeeksBack)
         {
             int days = numberOfWeeksBack * 7;
@@ -1129,14 +1210,18 @@ Path;
         #endregion
 >>>>>>>+HEAD
 object sender, EventArgs e)
-        {
-            string tmp = sourcePathTextBox.Text;
-            sourcePathTextBox.Text = destinationPathTextBox.Text;
+>>>>>>>+HEAD
+j pliki         #endregion
+
+        private void button3_Click(object sender, EventArgs e)
+>>>>>>>-dbb3e01
+Box.Text;
             destinationPathTextBox.Text = tmp;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             int days = numberOfWeeksBack * 7;
             filesRemoverModel.BorderDate = DateTime.Now;
             filesRemoverModel.BorderDate = filesRemoverModel.BorderDate.Subtract(TimeSpan.FromDays(days));
